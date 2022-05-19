@@ -1,15 +1,11 @@
 package com.my.blog.Service;
 
 import com.my.blog.Entity.User;
-import com.my.blog.Repository.UserRepository;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,8 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class UserServiceTest {
 
-    @Autowired
-    UserRepository userRepository;
+
 
     @Autowired
     UserService userService;
@@ -34,11 +29,10 @@ class UserServiceTest {
                 .build());
 
         // when
-        User result = userService.findByUsername("testUsername").get();
+        Long result = userService.findByUsername("testUsername").get().getId();
 
         // then
         Assertions.assertThat(user).isEqualTo(result);
-        Assertions.assertThat(user).isEqualTo(result.getId());
 
 
     }
