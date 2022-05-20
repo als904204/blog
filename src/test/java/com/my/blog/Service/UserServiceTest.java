@@ -1,11 +1,16 @@
 package com.my.blog.Service;
 
 import com.my.blog.Entity.User;
+import com.my.blog.Repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,6 +22,9 @@ class UserServiceTest {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserRepository userRepository;
 
 
     @Test
@@ -35,6 +43,13 @@ class UserServiceTest {
         Assertions.assertThat(user).isEqualTo(result);
 
 
+        /**
+        userRepository.save(User.builder()
+                .username("builderUser")
+                .password("builderPwd")
+                .email("email")
+                .build());
+         **/
     }
 
     @Test
@@ -60,4 +75,33 @@ class UserServiceTest {
         //then
         Assertions.assertThat(returnStatusMessage.getMessage()).isEqualTo("이미 존재하는 회원입니다");
     }
+
+    @Test
+    void 모든유저조회() {
+        int userNum = 30;
+        List<User> userList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            userList.add(User.builder()
+                    .username("user" + ++userNum)
+                    .password("pwd" + ++userNum)
+                    .email("email" + ++userNum)
+                    .build());
+        }
+
+        Iterator<User> iterator = userList.iterator();
+
+        while (iterator.hasNext()) {
+            userService.join(iterator.next());
+        }
+
+        List<User> findAll = userRepository.findAll();
+
+        Assertions.assertThat(findAll.size()).isEqualTo(10);
+        Assertions.assertThat(findAll.size()).isNotEqualTo(100);
+
+
+
+
+    }
+
 }
