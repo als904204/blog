@@ -32,7 +32,7 @@ public class UserService {
     @Transactional
     public User update(User RequestUser, Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> {
-                    throw new IllegalArgumentException("수정 오류");
+                    throw new IllegalArgumentException("해당 ID 유저를  찾을 수 없습니다");
                 }
         );
         user.setPassword(RequestUser.getPassword());

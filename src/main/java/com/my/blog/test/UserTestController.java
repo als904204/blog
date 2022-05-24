@@ -63,13 +63,13 @@ public class UserTestController {
 
     // 유저 삭제
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
+    public Long delete(@PathVariable Long id) {
         try {
             userRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-           return "해당 유저 없음";
+           return id;
         }
-        return "delete";
+        return id;
     }
 
 
