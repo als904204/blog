@@ -6,6 +6,7 @@ import com.my.blog.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,7 +27,7 @@ public class UserTestController {
 
     private final UserService userService;
 
-
+    // 유저 회원가입
     @PostMapping("/join3")
     public String join3(User user) {
         log.info("username={}", user.getUsername());
@@ -36,28 +37,41 @@ public class UserTestController {
         return "post 테스트";
     }
 
-    // Only one User select
+    // id 로 유저 조회하기
     @GetMapping("/detail/{id}")
     public User detail(@PathVariable Long id) {
-        /**
-
-         User user = userRepository.findById(id).orElseThrow(new Supplier<IllegalArgumentException>() {
-        @Override public IllegalArgumentException get() {
-        return new IllegalArgumentException("존재하지 않는 유저입니다 : " + id);
-        }
-         **/
-
         User user = userRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("존재하지 않는 유저입니다 : " + id);
         });
         return user;
     }
 
-    // All Users Select
+    // 모든 유저 조회
     @GetMapping("/users")
     public List<User> userList() {
         return userRepository.findAll();
     }
+
+
+    // 유저 업데이트
+    @PutMapping("/update/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        userService.update(user,id);
+        return user;
+    }
+
+
+    // 유저 삭제
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable Long id) {
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+           return "해당 유저 없음";
+        }
+        return "delete";
+    }
+
 
     // 한페이지당 2개의 데이터 리턴
     @GetMapping()
@@ -67,4 +81,5 @@ public class UserTestController {
         List<User> users = pagingUser.getContent();
         return users;
     }
+
 }

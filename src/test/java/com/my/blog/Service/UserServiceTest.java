@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
 
 
-
     @Autowired
     UserService userService;
 
@@ -44,11 +43,11 @@ class UserServiceTest {
 
 
         /**
-        userRepository.save(User.builder()
-                .username("builderUser")
-                .password("builderPwd")
-                .email("email")
-                .build());
+         userRepository.save(User.builder()
+         .username("builderUser")
+         .password("builderPwd")
+         .email("email")
+         .build());
          **/
     }
 
@@ -70,7 +69,7 @@ class UserServiceTest {
         user2.setEmail("testEmail");
 
         IllegalArgumentException returnStatusMessage = assertThrows(IllegalArgumentException.class,
-                ()-> userService.join(user2));
+                () -> userService.join(user2));
 
         //then
         Assertions.assertThat(returnStatusMessage.getMessage()).isEqualTo("이미 존재하는 회원입니다");
@@ -98,10 +97,48 @@ class UserServiceTest {
 
         Assertions.assertThat(findAll.size()).isEqualTo(10);
         Assertions.assertThat(findAll.size()).isNotEqualTo(100);
-
-
-
-
     }
 
+    @Test
+    void 유저_업데이트() {
+        User user1 = new User();
+        user1.setUsername("testUpdateName");
+        user1.setPassword("testUpdatePwd");
+        user1.setEmail("testUpdateEmail");
+
+        userService.join(user1);
+
+
+        User updateUser = userService.update(User.builder()
+                    .password("updatePWD")
+                    .email("updateEmail")
+                    .build()
+                ,1L);
+
+        Assertions.assertThat(user1.getUsername()).isEqualTo(updateUser.getUsername());
+    }
+
+    @Test
+    void 유저_삭제() {
+
+        // given
+        User user1 = new User();
+        user1.setUsername("testUpdateName1");
+        user1.setPassword("testUpdatePwd1");
+        user1.setEmail("testUpdateEmail1");
+        userService.join(user1);
+
+        User user2 = new User();
+        user2.setUsername("testUpdateName2");
+        user2.setPassword("testUpdatePwd2");
+        user2.setEmail("testUpdateEmail2");
+        userService.join(user2);
+
+        // when
+        userRepository.deleteById(2L);
+        List<User> findAll = userRepository.findAll();
+
+        // then
+        Assertions.assertThat(findAll.size()).isEqualTo(1);
+    }
 }
