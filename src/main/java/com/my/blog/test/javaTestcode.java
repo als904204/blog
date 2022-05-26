@@ -8,27 +8,19 @@ import java.util.List;
 
 public class javaTestcode {
     public static void main(String[] args) {
-        int userNum = 0;
-        List<User> userList = new ArrayList<>();
 
 
 
+    }
+}
 
-        for (int i = 0; i < 10; i++) {
-            userList.add(User.builder()
-                    .username("user" + ++userNum)
-                    .password("pwd" + ++userNum)
-                    .email("email" + ++userNum)
-                    .build());
-        }
+class SutdaCard {
 
+    public int num;
+    public boolean isKwang;
 
-        for (int i = 0; i < userList.size(); i++) {
-            User u = userList.get(i);
-            System.out.println(u.getUsername());
-        }
-
-
-
+    public SutdaCard(int num, boolean isKwang) {
+        this.num = num;
+        this.isKwang = isKwang;
     }
 }
