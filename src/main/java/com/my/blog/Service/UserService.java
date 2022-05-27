@@ -15,11 +15,21 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    // 트랜잭션 하나라도 실패 시 롤백
+    // 가입 실패 시 -1L 리턴
+    // 성공 시 1L
+    @Transactional
     public Long join(User user) {
         validateDuplicateUser(user);
-        user.setRole(RoleType.USER);
-        userRepository.save(user);
-        return user.getId();
+
+        try {
+            user.setRole(RoleType.USER);
+            userRepository.save(user);
+            return 1L;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1L;
     }
 
     private void validateDuplicateUser(User user) {
