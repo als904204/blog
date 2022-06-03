@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
+
 @Log4j2
 @RequiredArgsConstructor
 @RestController
 public class UserApiController {
 
     private final UserService userService;
-
+    private final HttpSession session;
     // json 받음 = @RequestBody
     @PostMapping("/api/user")
     public ResponseDto<Integer> save(@RequestBody User user) {
@@ -30,7 +32,13 @@ public class UserApiController {
     @PostMapping("/api/user/login")
     public ResponseDto<Integer> login(@RequestBody User user) {
         log.info("login() 호출");
-        userService.login(user);
+        User principal = userService.login(user); // principal 접근 주체
+
+        if (principal != null) {
+            session.setAttribute("principal",principal);
+            log.info("session={}",session.getAttribute("principal"));
+        }
+
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 }

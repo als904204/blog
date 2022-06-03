@@ -56,4 +56,8 @@ public class UserService {
     }
 
 
+    @Transactional(readOnly=true)
+    public User login(User user){
+        return userRepository.login(user.getUsername(), user.getPassword());
+    }
 }

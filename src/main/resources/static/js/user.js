@@ -3,6 +3,9 @@ let index = {
         $("#btn-join").on("click",() =>{
             this.save();
         });
+        $("#btn-login").on("click",() =>{
+            this.login();
+        });
     },
 
 
