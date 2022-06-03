@@ -23,23 +23,12 @@ public class UserApiController {
 
 
     // json 받음 = @RequestBody
-    @PostMapping("/api/user")
+    @PostMapping("/auth/joinProc")
     public ResponseDto<Integer> save(@RequestBody User user) {
         userService.join(user);
         log.info("UserApiController.class : save() 호출");
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // user.js res 에 1리턴
     }
-// 시큐리티로 수정
-//    @PostMapping("/api/user/login")
-//    public ResponseDto<Integer> login(@RequestBody User user,HttpSession session) {
-//        log.info("login() 호출");
-//        User principal = userService.login(user); // principal 접근 주체
-//
-//        if (principal != null) {
-//            session.setAttribute("principal",principal);
-//            log.info("session={}",session.getAttribute("principal"));
-//        }
-//
-//        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-//    }
+
+
 }

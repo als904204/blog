@@ -56,12 +56,5 @@ public class UserService {
     }
 
 
-    @Transactional(readOnly=true)
-    public User login(User user){
-        User nullUser= userRepository.findByUsername(user.getUsername()).orElseThrow(() ->{
-                    throw new IllegalArgumentException("해당 ID 유저를 찾을 수 없습니다");
-          }
-        );
-        return userRepository.login(user.getUsername(), user.getPassword());
-    }
+
 }
