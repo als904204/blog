@@ -20,7 +20,8 @@ import javax.servlet.http.HttpSession;
 public class UserApiController {
 
     private final UserService userService;
-    private final HttpSession session;
+
+
     // json 받음 = @RequestBody
     @PostMapping("/api/user")
     public ResponseDto<Integer> save(@RequestBody User user) {
@@ -28,17 +29,17 @@ public class UserApiController {
         log.info("UserApiController.class : save() 호출");
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // user.js res 에 1리턴
     }
-
-    @PostMapping("/api/user/login")
-    public ResponseDto<Integer> login(@RequestBody User user) {
-        log.info("login() 호출");
-        User principal = userService.login(user); // principal 접근 주체
-
-        if (principal != null) {
-            session.setAttribute("principal",principal);
-            log.info("session={}",session.getAttribute("principal"));
-        }
-
-        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
-    }
+//
+//    @PostMapping("/api/user/login")
+//    public ResponseDto<Integer> login(@RequestBody User user,HttpSession session) {
+//        log.info("login() 호출");
+//        User principal = userService.login(user); // principal 접근 주체
+//
+//        if (principal != null) {
+//            session.setAttribute("principal",principal);
+//            log.info("session={}",session.getAttribute("principal"));
+//        }
+//
+//        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+//    }
 }
