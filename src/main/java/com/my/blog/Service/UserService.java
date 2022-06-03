@@ -4,6 +4,7 @@ import com.my.blog.Entity.RoleType;
 import com.my.blog.Entity.User;
 import com.my.blog.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,21 +16,19 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final BCryptPasswordEncoder encoder;
+
     // 트랜잭션 하나라도 실패 시 롤백
     // 가입 실패 시 -1L 리턴
     // 성공 시 1L
     @Transactional
-    public Long join(User user) {
+    public void join(User user) {
         validateDuplicateUser(user);
-
-        try {
-            user.setRole(RoleType.USER);
-            userRepository.save(user);
-            return 1L;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return -1L;
+        String rawPassword = user.getPassword(); // Original Password
+        String encPassword = encoder.encode(rawPassword); // hash Password
+        user.setPassword(encPassword);
+        user.setRole(RoleType.USER);
+        userRepository.save(user);
     }
 
     private void validateDuplicateUser(User user) {
