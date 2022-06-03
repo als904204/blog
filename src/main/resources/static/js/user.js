@@ -24,14 +24,14 @@ let index = {
         // ajax 호출 시 default 가 비동기 호출
         $.ajax({
             type: "POST",
-            url: "/blog/api/user",
+            url: "/api/user",
             data: JSON.stringify(data), // javascript 의 data 를 JSON 로 변환하여 JAVA 로 전달
             contentType: "application/json; charset=utf-8", // body 데이터가 어떤 type 인지
             dataType: "json" // 응답된 데이터가 json 이라면 javascript 오브젝트로 받음
         }).done(function (res) {
             console.log(res);
             alert("successful!");
-            location.href = "/blog";
+            location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -47,14 +47,14 @@ let index = {
 
         $.ajax({
             type: "POST",
-            url: "/blog/api/user/login",
+            url: "/api/user/login",
             data: JSON.stringify(data), // javascript 의 data 를 JSON 로 변환하여 JAVA 로 전달
             contentType: "application/json; charset=utf-8", // body 데이터가 어떤 type 인지
             dataType: "json" // 응답된 데이터가 json 이라면 javascript 오브젝트로 받음
         }).done(function (res) {
             console.log(res);
             alert("로그인 성공");
-            location.href = "/blog";
+            location.href = "/";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
