@@ -29,7 +29,7 @@ class UserServiceTest {
     @Test
     void 회원가입() {
         // given
-        int user = userService.join(User.builder()
+        Long user = userService.join(User.builder()
                 .username("testUsername")
                 .password("testPwd")
                 .email("testEmail")

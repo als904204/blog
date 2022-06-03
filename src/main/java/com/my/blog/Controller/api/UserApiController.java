@@ -7,6 +7,7 @@ import com.my.blog.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,10 +21,16 @@ public class UserApiController {
 
     // json 받음 = @RequestBody
     @PostMapping("/api/user")
-    public ResponseDto<Long> save(@RequestBody User user) {
-        Long result = userService.join(user);
+    public ResponseDto<Integer> save(@RequestBody User user) {
+        userService.join(user);
         log.info("UserApiController.class : save() 호출");
-        return new ResponseDto<Long>(HttpStatus.OK.value(),result); // user.js res 에 1리턴
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // user.js res 에 1리턴
     }
 
+    @PostMapping("/api/user/login")
+    public ResponseDto<Integer> login(@RequestBody User user) {
+        log.info("login() 호출");
+        userService.login(user);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
+    }
 }

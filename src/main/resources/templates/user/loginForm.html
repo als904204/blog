@@ -7,7 +7,7 @@
 
 <div th:replace="/layout/navbar.html :: fragment-nav"></div>
 <div class="container">
-<form action="/action_page.php">
+<form>
 
     <div class="form-group">
         <label for="username">Username</label>
@@ -24,10 +24,11 @@
             <input class="form-check-input" type="checkbox"> Remember me
         </label>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+ </form>
+    <button type="btn-login" class="btn btn-primary">Login</button>
 </div>
-
+<!-- user.js 호출 -->
+<script src="/blog/js/user.js"></script>
 <footer th:replace="/layout/footer.html :: fragment-footer"></footer>
 
 
