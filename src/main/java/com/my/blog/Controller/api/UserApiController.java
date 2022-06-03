@@ -29,7 +29,7 @@ public class UserApiController {
         log.info("UserApiController.class : save() 호출");
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1); // user.js res 에 1리턴
     }
-//
+// 시큐리티로 수정
 //    @PostMapping("/api/user/login")
 //    public ResponseDto<Integer> login(@RequestBody User user,HttpSession session) {
 //        log.info("login() 호출");
