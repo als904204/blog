@@ -14,7 +14,6 @@ public class BoardController {
     @GetMapping({"", "/"})
     public String index(@AuthenticationPrincipal PrincipalDetail principal) {
         log.info("사용자 아이디 : {} ", principal.getUsername());
-        log.info("사용자 패스워드 : {} ", principal.getPassword());
         return "index";
     }
 }
