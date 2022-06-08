@@ -1,12 +1,14 @@
 package com.my.blog.Config.auth;
 
 import com.my.blog.Entity.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+@Getter
 public class  PrincipalDetail implements UserDetails {
 
     private User user; // 콤포지션(extends 처럼 상속이 아닌 필드에 가지고 있을 경우)
@@ -37,6 +39,7 @@ public class  PrincipalDetail implements UserDetails {
     public boolean isAccountNonLocked() {
         return true;
     }
+
 
     // 비밀번호 만료 true : 만료안됨 / false : 만료
     @Override

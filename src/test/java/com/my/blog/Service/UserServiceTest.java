@@ -26,30 +26,6 @@ class UserServiceTest {
     UserRepository userRepository;
 
 
-    @Test
-    void 회원가입() {
-        // given
-        Long user = userService.join(User.builder()
-                .username("testUsername")
-                .password("testPwd")
-                .email("testEmail")
-                .build());
-
-        // when
-        Long result = userService.findByUsername("testUsername").get().getId();
-
-        // then
-        Assertions.assertThat(user).isEqualTo(result);
-
-
-        /**
-         userRepository.save(User.builder()
-         .username("builderUser")
-         .password("builderPwd")
-         .email("email")
-         .build());
-         **/
-    }
 
     @Test
     void 중복회원예외() {

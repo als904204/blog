@@ -27,7 +27,6 @@ public class Board {
     private String content;
 
     // 조회수
-    @ColumnDefault("0")
     private int count;
 
     /** 수정 **/
