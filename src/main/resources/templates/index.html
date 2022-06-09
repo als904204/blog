@@ -6,25 +6,17 @@
 <body>
 <div th:replace="/layout/navbar.html :: fragment-nav"></div>
 
-<div class="container">
-    <div class="card m-2">
-        <div class="card-body">
-            <h4 class="card-title">제목 적는 부분</h4>
-            <p class="card-text">내용이오</p>
-            <a href="#" class="btn btn-primary">상세보기오</a>
+    <div class="container">
+        <div class="card m-2" th:each="board : ${boardList}">
+            <div class="card-body">
+                <h4 class="card-title" th:text="${board.getTitle()}">게시글 제목</h4>
+                <strong th:text="|작성자 : ${board.getUser().getUsername()}|">작성자 : 김OO</strong>
+                <p th:text="|날짜 : ${board.getCreateDate()}|">20xx-xx-xx xx:xx:xx.xx</p>
+                <p th:text="|조회수 : ${board.getCount()}|">132</p>
+                <a href="#" class="btn btn-primary">상세보기오</a>
+            </div>
         </div>
     </div>
-</div>
-
-<div class="container">
-    <div class="card m-2">
-        <div class="card-body">
-            <h4 class="card-title">제목 적는 부분</h4>
-            <p class="card-text">내용이오</p>
-            <a href="#" class="btn btn-primary">상세보기오</a>
-        </div>
-    </div>
-</div>
 
 
 
