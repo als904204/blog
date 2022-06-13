@@ -7,7 +7,7 @@
 <div th:replace="/layout/navbar.html :: fragment-nav"></div>
 
     <div class="container">
-        <div class="card m-2" th:each="board : ${boardList}">
+        <div class="card m-2" th:each="board : ${boardList.content}">
             <div class="card-body">
                 <h4 class="card-title" th:text="${board.getTitle()}">게시글 제목</h4>
                 <strong th:text="|작성자 : ${board.getUser().getUsername()}|">작성자 : 김OO</strong>
@@ -18,6 +18,35 @@
         </div>
     </div>
 
+<!-- 페이징 시작 -->
+<!-- 처음,끝 페이지 아닐 경우 ( 2,3,4,...n)-->
+<div th:if="!${boardList.last} and !${boardList.first}">
+    <ul class="pagination justify-content-center"  style="margin:20px 0" >
+        <li class="page-item"><a class="page-link " th:href="@{?page={num}(num=${boardList.getNumber()-1})}">Previous</a></li>
+        <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()+1})}">Next</a></li>
+    </ul>
+</div>
+
+<!-- 처음과 끝인 경우 -->
+<div th:unless="!${boardList.last} and !${boardList.first}">
+    <!-- 처음인 경우 -->
+    <div th:if="${boardList.first}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()-1})}">Previous</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()+1})}">Next</a></li>
+        </ul>
+    </div>
+
+    <!-- 끝인 경우 -->
+    <div th:unless="${boardList.first}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()-1})}">Previous</a></li>
+            <li class="page-item disabled"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()+1})}">Next</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- 페이징 끝 -->
 
 
 <footer th:replace="/layout/footer.html :: fragment-footer"></footer>
