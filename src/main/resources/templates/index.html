@@ -18,36 +18,37 @@
         </div>
     </div>
 
-<!-- 페이징 시작 -->
-<!-- 처음,끝 페이지 아닐 경우 ( 2,3,4,...n)-->
-<div th:if="!${boardList.last} and !${boardList.first}">
-    <ul class="pagination justify-content-center"  style="margin:20px 0" >
-        <li class="page-item"><a class="page-link " th:href="@{?page={num}(num=${boardList.getNumber()-1})}">Previous</a></li>
-        <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()+1})}">Next</a></li>
+<!-- 페이징처리 시작 -->
+<div th:if="${!boardList.isEmpty()}">
+    <ul class="pagination justify-content-center">
+        <!-- 이전 버튼 시작 -->
+        <li class="page-item" th:classappend="${!boardList.hasPrevious} ? 'disabled'">
+            <a class="page-link"
+               th:href="@{|?page=${boardList.number-1}|}">
+                <span>이전</span>
+            </a>
+        </li>
+        <!-- 이전 버튼 끝 -->
+
+            <!-- 페이지 번호 버튼 시작 -->
+            <li th:each="page: ${#numbers.sequence(0, boardList.totalPages-1)}"
+                th:if="${page >= boardList.number and page <= boardList.number + 4}"
+                th:classappend="${page == boardList.number} ? 'active'"
+                class="page-item">
+                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+            </li>
+           <!-- 페이지 번호 버튼 끝 -->
+
+        <!-- 다음 버튼 시작 -->
+        <li class="page-item" th:classappend="${!boardList.hasNext} ? 'disabled'">
+            <a class="page-link" th:href="@{|?page=${boardList.number+1}|}">
+                <span>다음</span>
+            </a>
+        </li>
+        <!-- 다음 버튼 끝 -->
     </ul>
 </div>
-
-<!-- 처음과 끝인 경우 -->
-<div th:unless="!${boardList.last} and !${boardList.first}">
-    <!-- 처음인 경우 -->
-    <div th:if="${boardList.first}">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()-1})}">Previous</a></li>
-            <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()+1})}">Next</a></li>
-        </ul>
-    </div>
-
-    <!-- 끝인 경우 -->
-    <div th:unless="${boardList.first}">
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()-1})}">Previous</a></li>
-            <li class="page-item disabled"><a class="page-link" th:href="@{?page={num}(num=${boardList.getNumber()+1})}">Next</a>
-            </li>
-        </ul>
-    </div>
-</div>
-<!-- 페이징 끝 -->
-
+<!-- 페이징처리 끝 -->
 
 <footer th:replace="/layout/footer.html :: fragment-footer"></footer>
 
