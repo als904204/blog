@@ -36,4 +36,9 @@ public class BoardService {
     }
 
 
+    public Board BoardDetail(Long id) {
+        return boardRepository.findById(id).orElseThrow(()-> {
+            return new IllegalArgumentException("해당 ID 에 해당하는 글을 찾을 수 없습니다 : " + id);
+        });
+    }
 }

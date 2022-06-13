@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+   <div th:replace="/layout/header.html :: fragment-header"></div>
+</head>
+<body>
+<div th:replace="/layout/navbar.html :: fragment-nav"></div>
+
+<div class="container">
+
+      <div class="form-group">
+         <h3 th:text="${boardDetail.title}">제목</h3>
+      </div>
+      <hr>
+
+      <!--   th:utext 를 사용해야 DB안에 html태그까지 모두 적용함(<p> 태그같은거나옴)    -->
+      <div class="form-group">
+         <div th:utext="${boardDetail.content}">글 내용</div>
+      </div>
+    <hr>
+
+    <div th:align="right">
+        <button id="btn-update"  class="btn btn-primary">수정</button>
+        <button id="btn-delete"  class="btn btn-danger">삭제</button>
+        <button  class="btn btn-success" onclick="history.back()">돌아가기</button>
+    </div>
+
+</div>
+
+<footer th:replace="/layout/footer.html :: fragment-footer"></footer>
+
+<script src="/js/board.js"></script>
+</body>
+</html>
