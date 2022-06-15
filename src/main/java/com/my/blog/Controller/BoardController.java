@@ -25,7 +25,7 @@ public class BoardController {
         return "index";
     }
 
-    @GetMapping("/board/{id}")
+    @GetMapping("/auth/board/{id}")
     public String BoardDetail(@PathVariable Long id, Model model) {
         model.addAttribute("boardDetail", boardService.BoardDetail(id));
         return "board/detail";
@@ -36,4 +36,6 @@ public class BoardController {
     public String saveForm() {
         return "board/saveForm";
     }
+
+
 }

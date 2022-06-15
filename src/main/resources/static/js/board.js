@@ -3,6 +3,9 @@ let index = {
         $("#btn-save").on("click",() =>{
             this.save();
         });
+        $("#btn-delete").on("click",() =>{
+            this.deleteById();
+        });
 
     },
 
@@ -30,6 +33,22 @@ let index = {
     },
 
 
+    deleteById : function () {
+
+        let  id = $("#id").text();
+
+        $.ajax({
+            type: "DELETE",
+            url: "/api/board/"+id,
+            dataType: "json"
+        }).done(function (res) {
+            console.log(res);
+            alert("삭제가 완료되었습니다!");
+            location.href = "/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    }
 };
 
 index.init()
