@@ -53,14 +53,6 @@ public class UserTestController {
     }
 
 
-    // 유저 업데이트
-    @PutMapping("/update/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        userService.update(user,id);
-        return user;
-    }
-
-
     // 유저 삭제
     @DeleteMapping("/{id}")
     public Long delete(@PathVariable Long id) {

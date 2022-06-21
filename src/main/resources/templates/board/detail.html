@@ -5,7 +5,7 @@
    <div th:replace="/layout/header.html :: fragment-header"></div>
     <link th:href="@{/css/detail.css}" rel="stylesheet" />
 </head>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <sec:authorize access="isAuthenticated()">
     <sec:authentication property="principal" var="principal"/>
 </sec:authorize>
@@ -19,6 +19,7 @@
               <h3 th:text="${boardDetail.title}">제목</h3>
       </div>
       <hr>
+
 
       <div>
           <div class="side">
@@ -42,7 +43,7 @@
 
     <div th:align="right">
         <div th:if="${boardDetail.user.getUsername() == #authentication.name}">
-            <button id="btn-update"  class="btn btn-primary">수정</button>
+            <a th:href="@{|/board/${boardDetail.getId()}/updateForm|}"  class="btn btn-primary">수정</a>
             <button id="btn-delete"  class="btn btn-danger">삭제</button>
             <button  class="btn btn-success" onclick="history.back()">돌아가기</button>
         </div>

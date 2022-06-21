@@ -37,16 +37,20 @@ public class UserService {
         });
     }
 
-    // 업데이트
+    // 유저 정보 수정
     @Transactional
-    public User update(User RequestUser, Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> {
-                    throw new IllegalArgumentException("해당 ID 유저를  찾을 수 없습니다");
-                }
-        );
-        user.setPassword(RequestUser.getPassword());
-        user.setEmail(RequestUser.getEmail());
-        return user;
+    public void update(User user) {
+        // 영속화 유저
+        User persistanceUser = userRepository.findById(user.getId()).orElseThrow(() -> {
+            return new IllegalArgumentException("해당 유저를 찾을 수 없습니다");
+        });
+
+        String rawPassword = user.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+
+        persistanceUser.setPassword(encPassword);
+        persistanceUser.setEmail(user.getEmail());
+
     }
 
 

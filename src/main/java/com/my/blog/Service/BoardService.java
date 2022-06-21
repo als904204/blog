@@ -53,4 +53,14 @@ public class BoardService {
         boardRepository.deleteById(id);
         log.info("게시글 id={} 삭제 됨",id);
     }
+
+    @Transactional
+    public void updateForm(Long id, Board requestBoard) {
+        Board board = boardRepository.findById(id).orElseThrow(()->{
+            return new IllegalArgumentException("해당 게시글이 없습니다");
+        });
+        board.setTitle(requestBoard.getTitle());
+        board.setContent(requestBoard.getContent());
+
+    }
 }

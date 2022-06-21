@@ -8,15 +8,16 @@
 
 <div class="container">
    <form>
+      <input type="hidden" id="id"  th:value="${updateBoard.getId()}">
       <div class="form-group">
-         <input type="text"class="form-control" placeholder="Enter title" id="title">
+         <input th:value="${updateBoard.getTitle()}" type="text"class="form-control" placeholder="Enter title" id="title">
       </div>
 
       <div class="form-group">
-         <textarea class="form-control summernote" rows="5" id="content"></textarea>
+         <textarea th:utext="${updateBoard.getContent()}" class="form-control summernote" rows="5" id="content"></textarea>
       </div>
 
-      <button id="btn-save" class="btn btn-primary" >등록</button>
+      <button id="btn-update" class="btn btn-primary" >수정</button>
    </form>
 </div>
 <script>
