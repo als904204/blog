@@ -4,6 +4,11 @@ import com.my.blog.Entity.RoleType;
 import com.my.blog.Entity.User;
 import com.my.blog.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +22,7 @@ public class UserService {
     private final UserRepository userRepository;
 
     private final BCryptPasswordEncoder encoder;
+
 
     // 트랜잭션 하나라도 실패 시 롤백
     // 가입 실패 시 -1L 리턴

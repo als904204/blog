@@ -41,6 +41,7 @@ let index = {
     update: function () {
 
         let data = {
+            username : $("#username").val(),
             password: $("#password").val(),
             id: $("#id").val(),
             passwordConfirm: $("#passwordConfirm").val(),
