@@ -1,0 +1,22 @@
+https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=1b0c0bcb9eb7e69d5e2acd5c1a5e9926&redirect_uri=http://localhost:8080/auth/kakao/callback
+
+로그인 요청 주소
+https://kauth.kakao.com/oauth/authorize?response_type=code
+&client_id=1b0c0bcb9eb7e69d5e2acd5c1a5e9926
+&redirect_uri=http://localhost:8080/auth/kakao/callback
+&response_type=code
+
+토근 발급 요청 주소 (POST) - http body 에 데이터 전달
+KEY : VALUE
+https://kauth.kakao.com/oauth/token
+grant_type:authorization_code
+client_id:1b0c0bcb9eb7e69d5e2acd5c1a5e9926
+redirect_uri:http://localhost:8080/auth/kakao/callback
+code:동적
+
+토큰을 통한 사용자 정보 조회 POST
+
+요청 주소 : https://kapi.kakao.com/v2/user/me
+헤더 값
+Authorization: Bearer {access_token}
+content-Type: application/x-www-form-urlencoded;charset=utf-8

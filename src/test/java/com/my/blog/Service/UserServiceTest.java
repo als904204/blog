@@ -75,24 +75,6 @@ class UserServiceTest {
         Assertions.assertThat(findAll.size()).isNotEqualTo(100);
     }
 
-    @Test
-    void 유저_업데이트() {
-        User user1 = new User();
-        user1.setUsername("testUpdateName");
-        user1.setPassword("testUpdatePwd");
-        user1.setEmail("testUpdateEmail");
-
-        userService.join(user1);
-
-
-        User updateUser = userService.update(User.builder()
-                    .password("updatePWD")
-                    .email("updateEmail")
-                    .build()
-                ,1L);
-
-        Assertions.assertThat(user1.getUsername()).isEqualTo(updateUser.getUsername());
-    }
 
     @Test
     void 유저_삭제() {

@@ -24,6 +24,8 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
 
+    private final AuthenticationManager authenticationManager;
+
     // 트랜잭션 하나라도 실패 시 롤백
     // 가입 실패 시 -1L 리턴
     // 성공 시 1L
@@ -39,6 +41,7 @@ public class UserService {
 
     private void validateDuplicateUser(User user) {
         userRepository.findByUsername(user.getUsername()).ifPresent(u -> {
+
             throw new IllegalArgumentException("이미 존재하는 회원입니다");
         });
     }
